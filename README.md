@@ -13,6 +13,6 @@ npx hardhat compile
 ```
 
 deploy the contracts locally 
-```shell
+```
 npx hardhat run scripts/deploy.js
 ```
