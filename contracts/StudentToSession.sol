@@ -8,13 +8,13 @@ import "./Session.sol" ;
 
 contract StudentToSession 
 {
-    mapping (Session => Student[]) sessionToStudents ;
-    mapping (Student => Session[]) studentToSessions ; 
+    mapping (uint16 => uint16[]) sessionToStudents ;
+    mapping (uint16 => uint16[]) studentToSessions ; 
 
-    function addStudentToSession(Student _student, Session _session) public 
+    function addStudentToSession(uint16 _studentId, uint16 _sessionId) public 
     {
-        sessionToStudents[_session].push(_student);
-        studentToSessions[_student].push(_session);
+        sessionToStudents[_sessionId].push(_studentId);
+        studentToSessions[_studentId].push(_sessionId);
     }
 
 }

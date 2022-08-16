@@ -26,7 +26,7 @@ contract SessionFactory
         return sessions.length ;
     }
 
-    function getSessionsById(uint16 _id) public view returns (uint16,uint32)
+    function getSessionById(uint16 _id) public view returns (uint16,uint32)
     {
         for (uint256 i=0; i<sessions.length ;i++)
         {
@@ -36,8 +36,8 @@ contract SessionFactory
             }
         }
         revert('Session with this id is not Not found');
-
     }
+
 
     
 

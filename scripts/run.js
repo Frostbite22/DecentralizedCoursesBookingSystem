@@ -6,8 +6,8 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 
-const main = async () => {
 
+const main = async () => {
 
     const studentContractFactory = await hre.ethers.getContractFactory("StudentFactory");
     const signers = await hre.ethers.getSigners() ; 
@@ -30,8 +30,30 @@ const main = async () => {
         student = await studentContract.getStudentById(i);
         console.log(student);
     }
-    
- 
+
+    // session contract 
+    const sessionContractFactory = await hre.ethers.getContractFactory("SessionFactory");
+    const sessionContract = await sessionContractFactory.deploy();
+    await sessionContract.deployed(); 
+
+    const createSessTxn = await sessionContract.createSession("1455");
+    createSessTxn.wait(); 
+    console.log("session created");
+
+    let session = await sessionContract.getSessionById(0);
+    let std = await studentContract.getStudentById(0);
+
+
+    // studentToSession contract 
+    const stdToSesContractFactory = await hre.ethers.getContractFactory("StudentToSession");
+    const stdToSesContract = await stdToSesContractFactory.deploy();
+    await stdToSesContract.deployed(); 
+
+    const stdToSessTnx = await stdToSesContract.addStudentToSession(std[0],session[0]) ;
+    stdToSessTnx.wait(); 
+    console.log("student added to Session");
+
+
     
 }
 
