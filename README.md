@@ -1,13 +1,18 @@
 # Sample Hardhat Project
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This is a decentralized courses booking system built with hardhat, solidity and Ethers JS
+
+Design Pattern : I'm choosing to use Factory design pattern to create the objects
 
 Try running some of the following tasks:
 
+compile the contracts 
+
+```
+npx hardhat compile 
+```
+
+deploy the contracts locally 
 ```shell
-npx hardhat help
-npx hardhat test
-GAS_REPORT=true npx hardhat test
-npx hardhat node
 npx hardhat run scripts/deploy.js
 ```
