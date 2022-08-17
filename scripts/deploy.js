@@ -1,24 +1,80 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
-// will compile your contracts, add the Hardhat Runtime Environment's members to the
-// global scope, and execute the script.
 const hre = require("hardhat");
 
-async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
 
-  const lockedAmount = hre.ethers.utils.parseEther("1");
+const main = async () => {
 
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+    const studentContractFactory = await hre.ethers.getContractFactory("StudentFactory");
+    const signers = await hre.ethers.getSigners() ; 
 
-  await lock.deployed();
+    const studentContract = await studentContractFactory.deploy();
+    await studentContract.deployed();
 
-  console.log("Lock with 1 ETH deployed to:", lock.address);
+    if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
+    {
+      console.log("Waiting for block confirmations ...");
+      await studentContract.deployTransaction.wait(1);
+      await verify(studentContract.address,[]);
+    }
+
+    console.log(`Deployed contract to: ${studentContract.address}`);
+
+
+    const studentToCreate = await studentContract.createStudent("mdfares","dark knight")
+    const student = await studentToCreate.wait();
+    const event = student.events.find(event => event.event === 'studentCreated');
+    const [id, first,last] = event.args;
+
+    console.log(`created student with id ${id} firstName ${first} and lastName ${last}`);
+
+    // session contract 
+    const sessionContractFactory = await hre.ethers.getContractFactory("SessionFactory");
+    const sessionContract = await sessionContractFactory.deploy();
+    await sessionContract.deployed(); 
+
+    const createSessTxn = await sessionContract.createSession("1455");
+    createSessTxn.wait(1); 
+    console.log(`session created `);
+
+    // const [sessionCreated] = txnReceipt.events;
+    // const { sessionId, date } = sessionCreated.args;
+
+
+    // let session = await sessionContract.getSessionById(0);
+    // session.wait() ;
+    // let std = await studentContract.getStudentById(0);
+    // std.wait();
+
+
+    // // studentToSession contract 
+    // const stdToSesContractFactory = await hre.ethers.getContractFactory("StudentToSession");
+    // const stdToSesContract = await stdToSesContractFactory.deploy();
+    // await stdToSesContract.deployed(); 
+
+    // const stdToSessTnx = await stdToSesContract.addStudentToSession(std[0],session[0]) ;
+    // stdToSessTnx.wait(); 
+    // console.log("student added to Session");
+
+}
+
+async function verify(contractAddress,args)
+{
+  console.log("Verifying contract ..");
+  try{
+  await run("verify:verify", {
+    address : contractAddress,
+    constructor : args 
+  })
+  }catch (e){
+    if (e.message.toLowerCase().includes("already verified"))
+    {
+      console.log("already verified");
+    }
+    else 
+    {
+      console.log(e);
+    }
+  }
+
 }
 
 // We recommend this pattern to be able to use async/await everywhere

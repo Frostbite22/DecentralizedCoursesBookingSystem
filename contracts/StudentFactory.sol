@@ -7,9 +7,10 @@ import "./Student.sol" ;
 
 contract StudentFactory
 {
+    
     uint16 private id ; 
     Student[] students ;
-    event studentCreated (Student std, uint16 id);
+    event studentCreated (uint16,string, string);
 
     function createStudent(string memory _firstName, string memory _lastName) public 
     {
@@ -17,7 +18,7 @@ contract StudentFactory
         std.setFirstName(_firstName);
         std.setLastName(_lastName); 
         students.push(std);
-        emit studentCreated(std,id);
+        emit studentCreated(id,_firstName,_lastName);
         id++ ;
     }
 
@@ -50,6 +51,11 @@ contract StudentFactory
             }
         }
         revert('Student with this account address is not Not found');
+    }
+
+    function getCurrentId() public view returns(uint16)
+    {
+        return id ; 
     }
 
 
