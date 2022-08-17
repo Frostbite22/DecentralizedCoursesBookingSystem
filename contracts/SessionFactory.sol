@@ -9,14 +9,14 @@ contract SessionFactory
 {
     uint16 private id ; 
     Session[] sessions ;
-    event sessionCreated (Session session, uint16 id);
+    event sessionCreated (uint16 id,uint32 date);
 
     function createSession(uint32 _date) public 
     {
         Session session = new Session(id);
         session.setDate(_date);
         sessions.push(session);
-        emit sessionCreated(session,id);
+        emit sessionCreated(id,_date);
         id++ ; 
     }
 

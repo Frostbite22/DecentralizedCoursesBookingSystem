@@ -9,15 +9,17 @@ const main = async () => {
     const studentContract = await studentContractFactory.deploy();
     await studentContract.deployed();
 
+    // verify deployment of student contracts
     if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
     {
       console.log("Waiting for block confirmations ...");
-      await studentContract.deployTransaction.wait(1);
+      await studentContract.deployTransaction.wait(5);
       await verify(studentContract.address,[]);
     }
 
     console.log(`Deployed contract to: ${studentContract.address}`);
 
+    // creating a student
 
     const studentToCreate = await studentContract.createStudent("mdfares","dark knight")
     const student = await studentToCreate.wait();
@@ -26,33 +28,38 @@ const main = async () => {
 
     console.log(`created student with id ${id} firstName ${first} and lastName ${last}`);
 
-    // session contract 
+    // session contract deployment
     const sessionContractFactory = await hre.ethers.getContractFactory("SessionFactory");
     const sessionContract = await sessionContractFactory.deploy();
     await sessionContract.deployed(); 
 
+    // verify deployment of student contracts
+    if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
+    {
+      console.log("Waiting for block confirmations ...");
+      await sessionContract.deployTransaction.wait(5);
+      await verify(sessionContract.address,[]);
+    }
+    
+
+    // creating a session 
+
     const createSessTxn = await sessionContract.createSession("1455");
-    createSessTxn.wait(1); 
-    console.log(`session created `);
+    const session =await createSessTxn.wait(); 
+    const eventSession = session.events.find(event => event.event ==='sessionCreated');
+    const [id_sess,date] = eventSession.args ;
+    console.log(`session created with id ${id_sess} and date ${date} `);
 
-    // const [sessionCreated] = txnReceipt.events;
-    // const { sessionId, date } = sessionCreated.args;
+  
 
+    // studentToSession contract 
+    const stdToSesContractFactory = await hre.ethers.getContractFactory("StudentToSession");
+    const stdToSesContract = await stdToSesContractFactory.deploy();
+    await stdToSesContract.deployed(); 
 
-    // let session = await sessionContract.getSessionById(0);
-    // session.wait() ;
-    // let std = await studentContract.getStudentById(0);
-    // std.wait();
-
-
-    // // studentToSession contract 
-    // const stdToSesContractFactory = await hre.ethers.getContractFactory("StudentToSession");
-    // const stdToSesContract = await stdToSesContractFactory.deploy();
-    // await stdToSesContract.deployed(); 
-
-    // const stdToSessTnx = await stdToSesContract.addStudentToSession(std[0],session[0]) ;
-    // stdToSessTnx.wait(); 
-    // console.log("student added to Session");
+    const stdToSessTnx = await stdToSesContract.addStudentToSession(id,id_sess) ;
+    stdToSessTnx.wait(); 
+    console.log("student added to Session");
 
 }
 
