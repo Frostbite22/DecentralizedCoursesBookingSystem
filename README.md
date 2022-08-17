@@ -16,3 +16,18 @@ deploy the contracts locally
 ```
 npx hardhat run scripts/deploy.js
 ```
+
+deploy the contracts on rinkeby network 
+```
+npx hardhat run scripts/deploy.js --network rinkeby
+```
+
+Unit Testing for the contract 
+```
+npx hardhat test 
+```
+
+Execute Balance task  
+```
+npx hardhat balance --account account_public_key 
+```

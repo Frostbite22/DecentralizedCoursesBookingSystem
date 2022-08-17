@@ -4,7 +4,6 @@ const hre = require("hardhat");
 const main = async () => {
 
     const studentContractFactory = await hre.ethers.getContractFactory("StudentFactory");
-    const signers = await hre.ethers.getSigners() ; 
 
     const studentContract = await studentContractFactory.deploy();
     await studentContract.deployed();
@@ -13,7 +12,7 @@ const main = async () => {
     if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
     {
       console.log("Waiting for block confirmations ...");
-      await studentContract.deployTransaction.wait(5);
+      await studentContract.deployTransaction.wait(6);
       await verify(studentContract.address,[]);
     }
 
@@ -45,7 +44,7 @@ const main = async () => {
     // creating a session 
 
     const createSessTxn = await sessionContract.createSession("1455");
-    const session =await createSessTxn.wait(); 
+    const session = await createSessTxn.wait(); 
     const eventSession = session.events.find(event => event.event ==='sessionCreated');
     const [id_sess,date] = eventSession.args ;
     console.log(`session created with id ${id_sess} and date ${date} `);
