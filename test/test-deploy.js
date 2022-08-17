@@ -30,7 +30,15 @@ describe("StudentFactory", function () {
         expect([id.toString(),first,last]).to.eql([currentId.toString(),"mdfares","dark knight"]);
 
         
-        
+        const currentLength = await studentContract.getStudentsLength();
+        const expectedLength = "1";
+        assert.equal(currentLength.toString(),expectedLength);
+    
+        const getStudent = await studentContract.getStudentById(id);
+        expect(getStudent).to.eql([currentId,"mdfares","dark knight"]);
+
     })
+
+  
     
 } )
