@@ -49,16 +49,41 @@ const main = async () => {
     const [id_sess,date] = eventSession.args ;
     console.log(`session created with id ${id_sess} and date ${date} `);
 
+    const createSess2Txn = await sessionContract.createSession("4555");
+    const session2 = await createSess2Txn.wait(); 
+    const eventSession2 = session2.events.find(event => event.event ==='sessionCreated');
+    const [id_sess2,date2] = eventSession2.args ;
+    console.log(`session created with id ${id_sess2} and date ${date2} `);
+
+
   
 
     // studentToSession contract 
-    const stdToSesContractFactory = await hre.ethers.getContractFactory("StudentToSession");
+    const stdToSesContractFactory = await hre.ethers.getContractFactory("StudentSessionFactory");
     const stdToSesContract = await stdToSesContractFactory.deploy();
     await stdToSesContract.deployed(); 
 
-    const stdToSessTnx = await stdToSesContract.addStudentToSession(id,id_sess) ;
+    const stdToSessTnx = await stdToSesContract.createStudentSession(id,id_sess) ;
     stdToSessTnx.wait(); 
     console.log("student added to Session");
+
+    const stdToSess2Tnx = await stdToSesContract.createStudentSession(id,id_sess2) ;
+    stdToSess2Tnx.wait(); 
+    console.log("student added to Session");
+
+
+    // sessions of Student 0
+    const sessions = await stdToSesContract.getStudentSessionsId(id);
+    console.log(`sessions of Student ${id}`);
+    console.log([...new Set(sessions)]);
+    // Students of session 0
+    const students1 = await stdToSesContract.getSessionStudentsId(id_sess);
+    console.log(`students of session ${id_sess}`);
+    console.log([...new Set(students1)]);
+    // Students of Session 1
+    const students2 = await stdToSesContract.getSessionStudentsId(id_sess2);
+    console.log(`students of session ${id_sess2}`);
+    console.log([...new Set(students2)]);
 
 }
 
