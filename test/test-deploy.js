@@ -1,8 +1,10 @@
 const hre = require("hardhat");
 const {expect , assert } = require("chai");
 
+let studentContractFactory, studentContract ;
+let sessionContractFactory, sessionContract ; 
 describe("StudentFactory", function () {
-    let studentContractFactory, studentContract ;
+    
     beforeEach(async function(){
         studentContractFactory = await hre.ethers.getContractFactory("StudentFactory");
         studentContract = await studentContractFactory.deploy() ; 
@@ -37,8 +39,33 @@ describe("StudentFactory", function () {
         const getStudent = await studentContract.getStudentById(id);
         expect(getStudent).to.eql([currentId,"mdfares","dark knight"]);
 
+    })    
+} )
+
+describe("SessionFactory", function() {
+    beforeEach(async function(){
+        sessionContractFactory = await hre.ethers.getContractFactory("SessionFactory");
+        sessionContract = await sessionContractFactory.deploy() ; 
+    }); 
+
+    it("Current Id should be 0 after creating of contract", async function()
+    {
+        const currentSessionId = await sessionContract.getCurrentId();
+        const expectedSessionId = "0" ; 
+        assert.equal(currentSessionId.toString(),expectedSessionId);
     })
 
-  
+    it("create a session", async function()
+    {
+        const currentId = await sessionContract.getCurrentId();
+        const sessionToCreate = await sessionContract.createSession("10112019");
+        const session = await sessionToCreate.wait();
+        const event = session.events.find(event => event.event === 'sessionCreated');
+        const [id, date] = event.args;
+        expect([id.toString(),date]).to.eql([currentId.toString(),10112019]);
+
     
-} )
+    })    
+
+
+})

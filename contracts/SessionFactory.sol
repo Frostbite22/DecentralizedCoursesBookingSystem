@@ -11,6 +11,10 @@ contract SessionFactory
     Session[] sessions ;
     event sessionCreated (uint16 id,uint32 date);
 
+    function getCurrentId() view public returns(uint16)
+    {
+        return id ;
+    }
     function createSession(uint32 _date) public 
     {
         Session session = new Session(id);
@@ -21,7 +25,7 @@ contract SessionFactory
     }
 
 
-    function getStudentsLength() public view returns(uint256)
+    function getSessionsLength() public view returns(uint256)
     {
         return sessions.length ;
     }
