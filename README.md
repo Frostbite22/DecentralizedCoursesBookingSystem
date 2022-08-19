@@ -2,10 +2,13 @@
 
 This is a decentralized courses booking system built with hardhat, solidity and Ethers JS and based on smart contracts
 
-Design Pattern : *Normal Factory design* pattern to create the student and Session objects
-*Method template design pattern* thus creating an abstract interface for the student to create in the Factory class
+## Design Patterns :
+### Normal Factory design pattern 
+to create the student and Session objects in Factory Class
+### Method template design pattern
+thus creating an abstract interface for the student and use it in the Factory ckass to create the student 
 
-Try running some of the following tasks:
+### Try running some of the following tasks:
 
 compile the contracts 
 
