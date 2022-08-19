@@ -31,6 +31,11 @@ Unit Testing for the contract
 npx hardhat test 
 ```
 
+Test coverage report  
+```
+npx hardhat coverage 
+```
+
 Execute Balance task  
 ```
 npx hardhat balance --account account_public_key 

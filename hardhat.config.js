@@ -3,6 +3,8 @@ require("dotenv").config();
 require("@nomiclabs/hardhat-etherscan");
 require("./tasks/account_balance");
 require("hardhat-gas-reporter");
+require('solidity-coverage')
+
 
 
 
@@ -30,6 +32,7 @@ module.exports = {
     enabled : true,
     outputFile : "gas-report.txt",
     noColors :true,
+    token :"AVAX"
   }
 
 };
