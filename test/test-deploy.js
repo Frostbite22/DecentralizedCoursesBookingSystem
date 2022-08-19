@@ -30,16 +30,46 @@ describe("StudentFactory", function () {
         const event = student.events.find(event => event.event === 'studentCreated');
         const [id, first,last] = event.args;
         expect([id.toString(),first,last]).to.eql([currentId.toString(),"mdfares","dark knight"]);
+        
+    }) 
+    it("No duplicate students to be created",async function(){
+        const currentId = await studentContract.getCurrentId();
+        const studentToCreate = await studentContract.createStudent("mdfares","dark knight")
+        const student = await studentToCreate.wait();
+        const event = student.events.find(event => event.event === 'studentCreated');
+        const [id, first,last] = event.args;
+        expect([id.toString(),first,last]).to.eql([currentId.toString(),"mdfares","dark knight"]);
 
+        await expect(studentContract.createStudent("mdfares","dark knight")).to.be.reverted ;
+ 
+    })  
+    
+    it("get students length after creating one student",async function(){
+        const currentId = await studentContract.getCurrentId();
+        const studentToCreate = await studentContract.createStudent("mdfares","dark knight")
+        const student = await studentToCreate.wait();
+        const event = student.events.find(event => event.event === 'studentCreated');
+        const [id, first,last] = event.args;
+        expect([id.toString(),first,last]).to.eql([currentId.toString(),"mdfares","dark knight"]);
         
         const currentLength = await studentContract.getStudentsLength();
         const expectedLength = "1";
-        assert.equal(currentLength.toString(),expectedLength);
-    
+        assert.equal(currentLength.toString(),expectedLength);  
+    })
+
+    it("get student by id", async function()
+    {
+        const currentId = await studentContract.getCurrentId();
+        const studentToCreate = await studentContract.createStudent("mdfares","dark knight")
+        const student = await studentToCreate.wait();
+        const event = student.events.find(event => event.event === 'studentCreated');
+        const [id, first,last] = event.args;
+        expect([id.toString(),first,last]).to.eql([currentId.toString(),"mdfares","dark knight"]);
+            
         const getStudent = await studentContract.getStudentById(id);
         expect(getStudent).to.eql([currentId,"mdfares","dark knight"]);
 
-    })    
+    }) 
 } )
 
 describe("SessionFactory", function() {
@@ -66,6 +96,5 @@ describe("SessionFactory", function() {
 
     
     })    
-
-
 })
+

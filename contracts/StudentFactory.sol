@@ -16,9 +16,17 @@ contract StudentFactory
 
     function createStudent(string memory _firstName, string memory _lastName) public 
     {
+        for (uint i=0 ; i< students.length ; i++)
+        {
+            if (keccak256(bytes(_firstName))==keccak256(bytes(students[i].getFirstName()))&&
+            keccak256(bytes(_lastName))==keccak256(bytes(students[i].getLastName())))            
+            {
+                revert("this student already exists");    
+            }
+        }
         AbstractStudent std = new Student(id) ;
         std.setFirstName(_firstName);
-        std.setLastName(_lastName); 
+        std.setLastName(_lastName);  
         students.push(std);
         emit studentCreated(id,_firstName,_lastName);
         id++ ;

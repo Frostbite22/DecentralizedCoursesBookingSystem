@@ -27,6 +27,14 @@ const main = async () => {
 
     console.log(`created student with id ${id} firstName ${first} and lastName ${last}`);
 
+    // const studentToCreate2 = await studentContract.createStudent("mdfares","dark knight")
+    // const student2 = await studentToCreate2.wait();
+    // const event2 = student2.events.find(event => event.event === 'studentCreated');
+    // const [id2, first2,last2] = event2.args;
+
+    // console.log(`created student with id ${id2} firstName ${first2} and lastName ${last2}`);
+
+
     // session contract deployment
     const sessionContractFactory = await hre.ethers.getContractFactory("SessionFactory");
     const sessionContract = await sessionContractFactory.deploy();
