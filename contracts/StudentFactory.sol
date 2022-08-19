@@ -5,17 +5,18 @@ pragma solidity ^0.8.9;
 // Import this file to use console.log
 import "hardhat/console.sol";
 import "./Student.sol" ;
+import "./AbstractStudent.sol" ;
 
 contract StudentFactory
 {
     
     uint16 private id ; 
-    Student[] students ;
+    AbstractStudent[] students ;
     event studentCreated (uint16,string, string);
 
     function createStudent(string memory _firstName, string memory _lastName) public 
     {
-        Student std = new Student(id);
+        AbstractStudent std = new Student(id) ;
         std.setFirstName(_firstName);
         std.setLastName(_lastName); 
         students.push(std);

@@ -3,8 +3,9 @@ pragma solidity ^0.8.9;
 
 // Import this file to use console.log
 import "hardhat/console.sol";
+import "./AbstractStudent.sol" ;
 
-contract Student 
+contract Student is AbstractStudent
 {
     string private firstName ; 
     string private lastName ; 
@@ -24,42 +25,42 @@ contract Student
         _;
     }
 
-    function setFirstName(string calldata _fn) onlyOwner public 
+    function setFirstName(string calldata _fn) onlyOwner override public 
     {
         firstName = _fn ;
     }
 
-    function getFirstName() public view returns(string memory)
+    function getFirstName() override public view returns(string memory) 
     {
         return firstName ;
     }
 
-    function setLastName(string calldata _ln) onlyOwner public 
+    function setLastName(string calldata _ln) onlyOwner override public
     {
         lastName = _ln ;
     }
 
-    function getLastName() public view returns(string memory)
+    function getLastName()  view override public returns(string memory) 
     {
         return lastName ;
     }
 
-    function getId() public view returns(uint16)
+    function getId() override public view returns(uint16) 
     {
         return id ; 
     }
 
-    function getAccount() public view returns(address)
+    function getAccount() override public view returns(address) 
     {
         return account ; 
     }
 
-    function getEmail() public view returns(string memory)
+    function getEmail() override public view returns(string memory) 
     {
         return email ;
     }
 
-    function setEmail(string memory _email) public 
+    function setEmail(string memory _email) onlyOwner override public
     {
         email = _email ;
     }
