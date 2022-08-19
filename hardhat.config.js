@@ -2,12 +2,14 @@ require("@nomiclabs/hardhat-waffle");
 require("dotenv").config();
 require("@nomiclabs/hardhat-etherscan");
 require("./tasks/account_balance");
+require("hardhat-gas-reporter");
+
 
 
 const QUICKNODE_API_URL = process.env.QUICKNODE_API_URL;
 const RINKEBY_ACCOUNT_PK = process.env.RINKEBY_ACCOUNT_PK;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY ;
-
+const COINMARKETCAP_API_KEY= process.env.COINMARKETCAP_API_KEY ;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -21,5 +23,13 @@ module.exports = {
   },
   etherscan : {
     apiKey : ETHERSCAN_API_KEY 
+  },
+  gasReporter: {
+    currency: 'USD',
+    coinmarketcap : COINMARKETCAP_API_KEY,
+    enabled : true,
+    outputFile : "gas-report.txt",
+    noColors :true,
   }
+
 };
