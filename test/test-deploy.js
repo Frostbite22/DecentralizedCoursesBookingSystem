@@ -25,32 +25,32 @@ describe("StudentFactory", function () {
     it("create a student", async function()
     {
         const currentId = await studentContract.getCurrentId();
-        const studentToCreate = await studentContract.createStudent("mdfares","dark knight")
+        const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn")
         const student = await studentToCreate.wait();
         const event = student.events.find(event => event.event === 'studentCreated');
-        const [id, first,last] = event.args;
-        expect([id.toString(),first,last]).to.eql([currentId.toString(),"mdfares","dark knight"]);
+        const [id, first,last,account,email] = event.args;
+        expect([id.toString(),first,last,account,email]).to.eql([currentId.toString(),"mdfares","dark knight",account,"land@gmail.tn"]);
         
     }) 
     it("No duplicate students to be created",async function(){
         const currentId = await studentContract.getCurrentId();
-        const studentToCreate = await studentContract.createStudent("mdfares","dark knight")
+        const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn")
         const student = await studentToCreate.wait();
         const event = student.events.find(event => event.event === 'studentCreated');
-        const [id, first,last] = event.args;
-        expect([id.toString(),first,last]).to.eql([currentId.toString(),"mdfares","dark knight"]);
+        const [id, first,last,account,email] = event.args;
+        expect([id.toString(),first,last,account,email]).to.eql([currentId.toString(),"mdfares","dark knight",account,"land@gmail.tn"]);
 
-        await expect(studentContract.createStudent("mdfares","dark knight")).to.be.reverted ;
+        await expect(studentContract.createStudent("mdfares","dark knight",account,"land@gmail.tn")).to.be.reverted ;
  
     })  
     
     it("get students length after creating one student",async function(){
         const currentId = await studentContract.getCurrentId();
-        const studentToCreate = await studentContract.createStudent("mdfares","dark knight")
+        const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn")
         const student = await studentToCreate.wait();
         const event = student.events.find(event => event.event === 'studentCreated');
-        const [id, first,last] = event.args;
-        expect([id.toString(),first,last]).to.eql([currentId.toString(),"mdfares","dark knight"]);
+        const [id, first,last,account,email] = event.args;
+        expect([id.toString(),first,last,account,email]).to.eql([currentId.toString(),"mdfares","dark knight",account,"land@gmail.tn"]);
         
         const currentLength = await studentContract.getStudentsLength();
         const expectedLength = "1";
@@ -60,14 +60,14 @@ describe("StudentFactory", function () {
     it("get student by id", async function()
     {
         const currentId = await studentContract.getCurrentId();
-        const studentToCreate = await studentContract.createStudent("mdfares","dark knight")
+        const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn")
         const student = await studentToCreate.wait();
         const event = student.events.find(event => event.event === 'studentCreated');
-        const [id, first,last] = event.args;
-        expect([id.toString(),first,last]).to.eql([currentId.toString(),"mdfares","dark knight"]);
+        const [id, first,last,account,email] = event.args;
+        expect([id.toString(),first,last,account,email]).to.eql([currentId.toString(),"mdfares","dark knight",account,"land@gmail.tn"]);
             
         const getStudent = await studentContract.getStudentById(id);
-        expect(getStudent).to.eql([currentId,"mdfares","dark knight"]);
+        expect(getStudent).to.eql([currentId,"mdfares","dark knight",account,"land@gmail.tn"]);
 
     }) 
 } )
