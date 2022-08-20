@@ -6,7 +6,6 @@ pragma experimental ABIEncoderV2;
 // Import this file to use console.log
 import "hardhat/console.sol";
 import "./StudentToSession.sol" ;
-import "./SessionFactory.sol" ;
 
 contract StudentSessionFactory 
 {
