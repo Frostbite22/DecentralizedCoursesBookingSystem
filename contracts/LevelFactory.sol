@@ -9,13 +9,13 @@ contract LevelFactory
 {
     uint16 private id ; 
     Level[] levels ;
-    event levelCreated (uint16 id,string levelName, string description, string imgUrl, string pathId);
+    event levelCreated (uint16 id,string levelName, string description, string imgUrl, uint16 pathId);
 
     function getCurrentId() view public returns(uint16)
     {
         return id ;
     }
-    function createLevel(string memory _levelName,string memory _description,string memory _imageUrl, string memory _pathId) public 
+    function createLevel(string memory _levelName,string memory _description,string memory _imageUrl, uint16 _pathId) public 
     {
         Level level = new Level(id);
         level.setLevelName(_levelName);
@@ -41,6 +41,6 @@ contract LevelFactory
                 return (levels[i].getLevelId(),levels[i].getLevelName(),levels[i].getDescription(),levels[i].getImageUrl(),levels[i].getPathId());
             }
         }
-        revert('Session with this id is not Not found');
+        revert('Level with this id is not Not found');
     }
 } 

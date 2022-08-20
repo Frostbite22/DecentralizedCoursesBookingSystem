@@ -9,7 +9,7 @@ contract SessionFactory
 {
     uint16 private id ; 
     Session[] sessions ;
-    event sessionCreated (uint16 id,uint32 date);
+    event sessionCreated (uint16 id,uint32 date,uint16 levelId);
 
     function getCurrentId() view public returns(uint16)
     {
@@ -21,7 +21,7 @@ contract SessionFactory
         session.setDate(_date);
         session.setLevelId(_levelId);
         sessions.push(session);
-        emit sessionCreated(id,_date);
+        emit sessionCreated(id,_date,_levelId);
         id++ ; 
     }
 

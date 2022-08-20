@@ -27,6 +27,31 @@ const main = async () => {
 
     console.log(`created student with id ${id} firstName ${first} and lastName ${last} with acc ${account} and email ${email}`);
 
+    // deploying path contract
+    const pathContractFactory = await hre.ethers.getContractFactory("PathFactory");
+    const pathContract = await pathContractFactory.deploy();
+    await pathContract.deployed(); 
+
+    // creating a path
+
+    const createPathTxn = await pathContract.createPath("fullstack dev","front and back dev","url//image");
+    const path= await createPathTxn.wait(); 
+    const eventPath = path.events.find(event => event.event ==='pathCreated');
+    const [id_path,pathName,description,url] = eventPath.args ;
+    console.log(`path created with id ${id_path} and name ${pathName} : ${description} , ${url} `);
+    
+    // deploy the level contract 
+    const levelContractFactory = await hre.ethers.getContractFactory("LevelFactory");
+    const levelContract = await levelContractFactory.deploy();
+    await levelContract.deployed(); 
+
+    // creating a level for that path
+    const createLevelTxn = await levelContract.createLevel("backend lvl1","backend dev nodejs","url//node",id_path);
+    const level= await createLevelTxn.wait(); 
+    const eventLevel = level.events.find(event => event.event ==='levelCreated');
+    const [id_level,levelName,description_lvl,url_lvl,id_path_fk] = eventLevel.args ;
+    console.log(`level created with id ${id_level} and name ${levelName} : ${description_lvl} , ${url_lvl} with path id ${id_path_fk}`);
+
     // session contract deployment
     const sessionContractFactory = await hre.ethers.getContractFactory("SessionFactory");
     const sessionContract = await sessionContractFactory.deploy();
@@ -39,21 +64,20 @@ const main = async () => {
       await sessionContract.deployTransaction.wait(5);
       await verify(sessionContract.address,[]);
     }
-    
 
-    // creating a session 
+    // creating a session for that level
 
-    const createSessTxn = await sessionContract.createSession("1455");
+    const createSessTxn = await sessionContract.createSession("1455",id_level);
     const session = await createSessTxn.wait(); 
     const eventSession = session.events.find(event => event.event ==='sessionCreated');
-    const [id_sess,date] = eventSession.args ;
-    console.log(`session created with id ${id_sess} and date ${date} `);
+    const [id_sess,date,level_id_fk] = eventSession.args ;
+    console.log(`session created with id ${id_sess} and date ${date} and level id : ${level_id_fk} `);
 
-    const createSess2Txn = await sessionContract.createSession("4555");
+    const createSess2Txn = await sessionContract.createSession("4555",id_level);
     const session2 = await createSess2Txn.wait(); 
     const eventSession2 = session2.events.find(event => event.event ==='sessionCreated');
-    const [id_sess2,date2] = eventSession2.args ;
-    console.log(`session created with id ${id_sess2} and date ${date2} `);
+    const [id_sess2,date2,level_id_fk_2] = eventSession2.args ;
+    console.log(`session created with id ${id_sess2} and date ${date2} and level id : ${level_id_fk_2}`);
 
 
   
