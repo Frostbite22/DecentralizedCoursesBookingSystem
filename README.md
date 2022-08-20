@@ -8,6 +8,9 @@ to create the student and Session objects in Factory Class
 ### Method template design pattern
 thus creating an abstract interface for the student and use it in the Factory ckass to create the student 
 
+![alt text](https://github.com/Frostbite22/DecentralizedCoursesBookingSystem/blob/main/course_system_white.png?raw=true)
+
+
 ## Setting up the project 
 ### Clone the project 
 then ``` cd DecentralizedCoursesBookingSystem ```
