@@ -15,15 +15,34 @@ contract PathFactory
     {
         return id ;
     }
+
+     function isPathUnique( string memory _pathName) public view returns(bool)
+    {
+        for (uint i=0 ; i< paths.length ; i++)
+        {
+            if (keccak256(bytes(_pathName))==keccak256(bytes(paths[i].getPathName())))            
+            {
+                return false ;
+            }
+        }
+        return true ;
+    }
     function createPath(string memory _pathName,string memory _description,string memory _imageUrl) public 
     {
-        Path path = new Path(id);
-        path.setPathName(_pathName);
-        path.setDescription(_description);
-        path.setImageUrl(_imageUrl);
-        paths.push(path);
-        emit pathCreated(id,_pathName,_description,_imageUrl);
-        id++ ; 
+        if(isPathUnique(_pathName))
+        {
+            Path path = new Path(id);
+            path.setPathName(_pathName);
+            path.setDescription(_description);
+            path.setImageUrl(_imageUrl);
+            paths.push(path);
+            emit pathCreated(id,_pathName,_description,_imageUrl);
+            id++ ; 
+        }
+        else 
+        {
+            revert("Path name already exists !");
+        }
     }
 
 

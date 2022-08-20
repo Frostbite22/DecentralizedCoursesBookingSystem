@@ -15,15 +15,35 @@ contract LevelFactory
     {
         return id ;
     }
+
+    function isLevelUnique( string memory _levelName) public view returns(bool)
+    {
+        for (uint i=0 ; i< levels.length ; i++)
+        {
+            if (keccak256(bytes(_levelName))==keccak256(bytes(levels[i].getLevelName())))            
+            {
+                return false ;
+            }
+        }
+        return true ;
+    }
+
     function createLevel(string memory _levelName,string memory _description,string memory _imageUrl, uint16 _pathId) public 
     {
-        Level level = new Level(id);
-        level.setLevelName(_levelName);
-        level.setDescription(_description);
-        level.setImageUrl(_imageUrl);
-        levels.push(level);
-        emit levelCreated(id,_levelName,_description,_imageUrl,_pathId);
-        id++ ; 
+        if(isLevelUnique(_levelName))
+        {
+            Level level = new Level(id);
+            level.setLevelName(_levelName);
+            level.setDescription(_description);
+            level.setImageUrl(_imageUrl);
+            levels.push(level);
+            emit levelCreated(id,_levelName,_description,_imageUrl,_pathId);
+            id++ ; 
+        }
+        else 
+        {
+            revert("Level name is not unique !");
+        }
     }
 
 

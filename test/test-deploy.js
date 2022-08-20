@@ -3,6 +3,11 @@ const {expect , assert } = require("chai");
 
 let studentContractFactory, studentContract ;
 let sessionContractFactory, sessionContract ; 
+let levelContractFactory, levelContract ; 
+let pathContractFactory, pathContract ; 
+let studentSessionContractFactory, studentSessionContract ;
+
+
 describe("StudentFactory", function () {
     
     beforeEach(async function(){
@@ -72,6 +77,58 @@ describe("StudentFactory", function () {
     }) 
 } )
 
+describe("PathFactory", function() {
+    beforeEach(async function(){
+        pathContractFactory = await hre.ethers.getContractFactory("PathFactory");
+        pathContract = await pathContractFactory.deploy() ; 
+    }); 
+
+    it("Current Id should be 0 after creating of contract", async function()
+    {
+        const currentPathId = await pathContract.getCurrentId();
+        const expectedPathId = "0" ; 
+        assert.equal(currentPathId.toString(),expectedPathId);
+    })
+
+    it("create a path", async function()
+    {
+        const currentId = await pathContract.getCurrentId();
+        const pathToCreate = await pathContract.createPath("fullstack dev","front and back dev","url//image");
+        const path = await pathToCreate.wait();
+        const event = path.events.find(event => event.event === 'pathCreated');
+        const [id_path,pathName,description,url] = event.args;
+        expect([id_path.toString(),pathName,description,url]).to.eql([currentId.toString(),"fullstack dev","front and back dev","url//image"]);
+    
+    })    
+})
+
+
+describe("LevelFactory", function() {
+    beforeEach(async function(){
+        levelContractFactory = await hre.ethers.getContractFactory("LevelFactory");
+        levelContract = await levelContractFactory.deploy() ; 
+    }); 
+
+    it("Current Id should be 0 after creating of contract", async function()
+    {
+        const currentLevelId = await levelContract.getCurrentId();
+        const expectedLevelId = "0" ; 
+        assert.equal(currentLevelId.toString(),expectedLevelId);
+    })
+
+    it("create a level", async function()
+    {
+        const currentId = await levelContract.getCurrentId();
+        const levelToCreate = await levelContract.createLevel("backend lvl1","backend dev nodejs","url//node",0);
+        const level = await levelToCreate.wait();
+        const event = level.events.find(event => event.event === 'levelCreated');
+        const [id, levelName,description_lvl,url_lvl,id_path_fk] = event.args;
+        expect([id.toString(),levelName,description_lvl,url_lvl,id_path_fk]).to.eql([currentId.toString(),"backend lvl1","backend dev nodejs","url//node",0]);
+ 
+    })    
+})
+
+
 describe("SessionFactory", function() {
     beforeEach(async function(){
         sessionContractFactory = await hre.ethers.getContractFactory("SessionFactory");
@@ -86,15 +143,32 @@ describe("SessionFactory", function() {
     })
 
     it("create a session", async function()
-    {
+    {   
+        
         const currentId = await sessionContract.getCurrentId();
-        const sessionToCreate = await sessionContract.createSession("10112019");
+        const sessionToCreate = await sessionContract.createSession("10112019",0);
         const session = await sessionToCreate.wait();
         const event = session.events.find(event => event.event === 'sessionCreated');
-        const [id, date] = event.args;
-        expect([id.toString(),date]).to.eql([currentId.toString(),10112019]);
+        const [id, date,levelId] = event.args;
+        expect([id.toString(),date,levelId]).to.eql([currentId.toString(),10112019,0]);
 
-    
     })    
 })
+
+
+describe("StudentSessionFactory", function() {
+    beforeEach(async function(){
+        studentSessionContractFactory = await hre.ethers.getContractFactory("StudentSessionFactory");
+        studentSessionContract = await studentSessionContractFactory.deploy() ; 
+    }); 
+
+    it("add student to session", async function()
+    {   
+
+        const stdToSessTnx = await studentSessionContract.createStudentSession(0,0) ;
+        stdToSessTnx.wait(); 
+
+    })    
+})
+
 
