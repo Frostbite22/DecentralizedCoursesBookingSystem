@@ -16,7 +16,7 @@ contract Path
         pathId = _pathId ; 
     }
 
-    function setLevelName(string memory _pathName) public 
+    function setPathName(string memory _pathName) public 
     {
         pathName = _pathName ; 
     }
@@ -46,7 +46,6 @@ contract Path
         return imageUrl ; 
     }
 
-    
     
     function getPathId() view public returns(uint16)
     {

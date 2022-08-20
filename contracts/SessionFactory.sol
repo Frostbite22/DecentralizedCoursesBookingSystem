@@ -15,10 +15,11 @@ contract SessionFactory
     {
         return id ;
     }
-    function createSession(uint32 _date) public 
+    function createSession(uint32 _date,uint16 _levelId) public 
     {
         Session session = new Session(id);
         session.setDate(_date);
+        session.setLevelId(_levelId);
         sessions.push(session);
         emit sessionCreated(id,_date);
         id++ ; 

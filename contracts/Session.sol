@@ -8,6 +8,7 @@ contract Session
 {
     uint16 private sessionId ; 
     uint32 private date ; 
+    uint16 private levelId ; 
     
     constructor(uint16 _sessionId)
     {
@@ -27,4 +28,15 @@ contract Session
     {
         return sessionId ; 
     }
+
+     function setLevelId(uint16 _levelId) public 
+    {
+        levelId = _levelId;
+    }
+
+    function getLevelId() view public returns(uint16)
+    {
+        return levelId ; 
+    }
+    
 }

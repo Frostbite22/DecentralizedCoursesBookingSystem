@@ -10,6 +10,7 @@ contract Level
     string private levelName ; 
     string private description ; 
     string private imageUrl ; 
+    uint16 private pathId ;
 
     constructor(uint16 _levelId)
     {
@@ -46,10 +47,17 @@ contract Level
         return imageUrl ; 
     }
 
-    
-    
     function getLevelId() view public returns(uint16)
     {
         return levelId ; 
+    }
+    function getPathId() view public returns(uint16)
+    {
+        return pathId ;
+    }
+
+    function setPathId(uint16 _pathId) public 
+    {
+        pathId = _pathId ; 
     }
 } 
