@@ -6,14 +6,24 @@ import "hardhat/console.sol";
 
 contract Level 
 {   
-
     uint16 private levelId ; 
+    string private levelName ; 
     string private description ; 
     string private imageUrl ; 
 
     constructor(uint16 _levelId)
     {
         levelId = _levelId ; 
+    }
+
+    function setLevelName(string memory _levelName) public 
+    {
+        levelName = _levelName ; 
+    }
+
+    function getLevelName() view public returns(string memory)
+    {
+        return levelName ; 
     }
 
     function setDescription(string memory _description) public 
@@ -35,6 +45,8 @@ contract Level
     {
         return imageUrl ; 
     }
+
+    
     
     function getLevelId() view public returns(uint16)
     {
