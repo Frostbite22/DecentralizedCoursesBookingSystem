@@ -8,6 +8,20 @@ to create the student and Session objects in Factory Class
 ### Method template design pattern
 thus creating an abstract interface for the student and use it in the Factory ckass to create the student 
 
+## Setting up the project 
+### Clone the project 
+then ``` cd DecentralizedCoursesBookingSystem ```
+### Install npm dependencies 
+``` npm i ```
+### Configurations 
+create ```.env``` file in the root directory 
+set up these constants
+```
+QUICKNODE_API_URL=YOUR_QUICKNODE_API_KEY
+RINKEBY_ACCOUNT_PK=YOUR_RINKEBY_ACCOUNT_PK
+ETHERSCAN_API_KEY=YOUR_ETHERSCAN_API_KEY
+COINMARKETCAP_API_KEY=YOUR_COINMARKETCAP_API_KEY
+```
 ## Try running some of the following tasks:
 
 compile the contracts 
