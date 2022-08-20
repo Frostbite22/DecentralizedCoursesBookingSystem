@@ -14,23 +14,35 @@ contract StudentFactory
     AbstractStudent[] students ;
     event studentCreated (uint16,string, string,address,string);
 
-    function createStudent(string memory _firstName, string memory _lastName, string memory _email) public 
+    function isStudentUnique(string memory _firstName, string memory _lastName) public view returns(bool)
     {
         for (uint i=0 ; i< students.length ; i++)
         {
             if (keccak256(bytes(_firstName))==keccak256(bytes(students[i].getFirstName()))&&
             keccak256(bytes(_lastName))==keccak256(bytes(students[i].getLastName())))            
             {
-                revert("this student already exists");    
+                return false ;
             }
         }
-        AbstractStudent std = new Student(id) ;
-        std.setFirstName(_firstName);
-        std.setLastName(_lastName);  
-        std.setEmail(_email);
-        students.push(std);
-        emit studentCreated(id,_firstName,_lastName,std.getAccount(),_email);
-        id++ ;
+        return true ;
+    }
+
+    function createStudent(string memory _firstName, string memory _lastName, string memory _email) public 
+    {
+        if(isStudentUnique(_firstName,_lastName))
+        {
+            AbstractStudent std = new Student(id) ;
+            std.setFirstName(_firstName);
+            std.setLastName(_lastName);  
+            std.setEmail(_email);
+            students.push(std);
+            emit studentCreated(id,_firstName,_lastName,std.getAccount(),_email);
+            id++ ;
+        }
+        else 
+        {
+            revert("This student already exists");
+        }
     }
 
 
