@@ -32,6 +32,15 @@ const main = async () => {
     const pathContract = await pathContractFactory.deploy();
     await pathContract.deployed(); 
 
+
+    // verify deployment of pathContract contracts
+    if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
+    {
+      console.log("Waiting for block confirmations ...");
+      await pathContract.deployTransaction.wait(6);
+      await verify(pathContract.address,[]);
+    }
+
     // creating a path
 
     const createPathTxn = await pathContract.createPath("fullstack dev","front and back dev","url//image");
@@ -45,6 +54,15 @@ const main = async () => {
     const levelContract = await levelContractFactory.deploy();
     await levelContract.deployed(); 
 
+    // verify deployment of levelContract contracts
+    if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
+    {
+      console.log("Waiting for block confirmations ...");
+      await levelContract.deployTransaction.wait(6);
+      await verify(levelContract.address,[]);
+    }
+    
+
     // creating a level for that path
     const createLevelTxn = await levelContract.createLevel("backend lvl1","backend dev nodejs","url//node",id_path);
     const level= await createLevelTxn.wait(); 
@@ -57,11 +75,11 @@ const main = async () => {
     const sessionContract = await sessionContractFactory.deploy();
     await sessionContract.deployed(); 
 
-    // verify deployment of student contracts
+    // verify deployment of session contracts
     if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
     {
       console.log("Waiting for block confirmations ...");
-      await sessionContract.deployTransaction.wait(5);
+      await sessionContract.deployTransaction.wait(6);
       await verify(sessionContract.address,[]);
     }
 
@@ -86,6 +104,14 @@ const main = async () => {
     const stdToSesContractFactory = await hre.ethers.getContractFactory("StudentSessionFactory");
     const stdToSesContract = await stdToSesContractFactory.deploy();
     await stdToSesContract.deployed(); 
+
+    // verify deployment of studentToSession contracts
+    if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
+    {
+      console.log("Waiting for block confirmations ...");
+      await stdToSesContract.deployTransaction.wait(6);
+      await verify(stdToSesContract.address,[]);
+    }
 
     const stdToSessTnx = await stdToSesContract.createStudentSession(id,id_sess) ;
     stdToSessTnx.wait(); 
