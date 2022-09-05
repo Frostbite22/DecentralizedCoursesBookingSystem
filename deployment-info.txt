@@ -1,0 +1,53 @@
+Successfully submitted source code for contract
+contracts/StudentFactory.sol:StudentFactory at 0x7076842Da0B597642c71feE0B956f3a27c7F73F5
+for verification on the block explorer. Waiting for verification result...
+
+already verified
+Deployed contract to: 0x7076842Da0B597642c71feE0B956f3a27c7F73F5
+created student with id 0 firstName mdfares and lastName dark knight with acc 0x7076842Da0B597642c71feE0B956f3a27c7F73F5 and email land@gmail.tn
+Waiting for block confirmations ...
+Verifying contract ..
+Compiled 12 Solidity files successfully
+Successfully submitted source code for contract
+contracts/PathFactory.sol:PathFactory at 0x1f670439ca60D74837F3adB4a2431e3B75C01A1f
+for verification on the block explorer. Waiting for verification result...
+
+already verified
+path created with id 0 and name fullstack dev : front and back dev , url//image 
+Waiting for block confirmations ...
+Verifying contract ..
+Nothing to compile
+Successfully submitted source code for contract
+contracts/LevelFactory.sol:LevelFactory at 0x7BcbA15E35A973561a22969c76440E02Bd26805c
+for verification on the block explorer. Waiting for verification result...
+
+already verified
+level created with id 0 and name backend lvl1 : backend dev nodejs , url//node with path id 0
+Waiting for block confirmations ...
+Verifying contract ..
+Nothing to compile
+Successfully submitted source code for contract
+contracts/SessionFactory.sol:SessionFactory at 0x435D68b09700A9c5357b09A1a89a762CFe650f7F
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract SessionFactory on Etherscan.
+https://rinkeby.etherscan.io/address/0x435D68b09700A9c5357b09A1a89a762CFe650f7F#code
+session created with id 0 and date 1455 and level id : 0 
+session created with id 1 and date 4555 and level id : 0
+Waiting for block confirmations ...
+Verifying contract ..
+Nothing to compile
+Successfully submitted source code for contract
+contracts/StudentSessionFactory.sol:StudentSessionFactory at 0x5A102b0D77Fd7c7316A1Dc3a292Ad400B00a3936
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract StudentSessionFactory on Etherscan.
+https://rinkeby.etherscan.io/address/0x5A102b0D77Fd7c7316A1Dc3a292Ad400B00a3936#code
+student added to Session
+student added to Session
+sessions of Student 0
+[ 0 ]
+students of session 0
+[ 0 ]
+students of session 1
+[ 0 ]
