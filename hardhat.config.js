@@ -9,22 +9,23 @@ require('solidity-coverage')
 
 
 const QUICKNODE_API_URL = process.env.QUICKNODE_API_URL;
-const RINKEBY_ACCOUNT_PK = process.env.RINKEBY_ACCOUNT_PK;
+const ACCOUNT_PK = process.env.ACCOUNT_PK;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY ;
 const COINMARKETCAP_API_KEY= process.env.COINMARKETCAP_API_KEY ;
+const GOERLI_ALCHEMY_URL = process.env.GOERLI_ALCHEMY_URL ; 
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.9",
   networks: {
-    rinkeby: {
-      url: QUICKNODE_API_URL,
-      accounts: [RINKEBY_ACCOUNT_PK],
-      chainId: 4,
+    goerli: {
+      url: GOERLI_ALCHEMY_URL,
+      accounts: [ACCOUNT_PK],
+      chainId: 5,
     },
   },
   etherscan : {
-    apiKey : ETHERSCAN_API_KEY 
+    apiKey: ETHERSCAN_API_KEY
   },
   gasReporter: {
     currency: 'USD',

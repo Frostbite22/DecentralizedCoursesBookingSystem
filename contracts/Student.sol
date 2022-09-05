@@ -15,17 +15,11 @@ contract Student is AbstractStudent
 
     constructor(uint16 _id)
     {
-        account = msg.sender ;
         id = _id ;
     }
 
-    modifier onlyOwner() 
-    {
-        require(msg.sender == account,"Not the owner");
-        _;
-    }
 
-    function setFirstName(string calldata _fn) onlyOwner override public 
+    function setFirstName(string calldata _fn)  override public 
     {
         firstName = _fn ;
     }
@@ -35,7 +29,7 @@ contract Student is AbstractStudent
         return firstName ;
     }
 
-    function setLastName(string calldata _ln) onlyOwner override public
+    function setLastName(string calldata _ln)  override public
     {
         lastName = _ln ;
     }
@@ -55,12 +49,17 @@ contract Student is AbstractStudent
         return account ; 
     }
 
+    function setAccount(address _account)  override public
+    {
+        account = _account ;
+    }
+
     function getEmail() override public view returns(string memory) 
     {
         return email ;
     }
 
-    function setEmail(string memory _email) onlyOwner override public
+    function setEmail(string memory _email)  override public
     {
         email = _email ;
     }

@@ -38,9 +38,9 @@ deploy the contracts locally
 npx hardhat run scripts/deploy.js
 ```
 
-deploy the contracts on rinkeby network 
+deploy the contracts to goerli network 
 ```
-npx hardhat run scripts/deploy.js --network rinkeby
+npx hardhat run scripts/deploy.js --network goerli
 ```
 
 Unit Testing for the contract 

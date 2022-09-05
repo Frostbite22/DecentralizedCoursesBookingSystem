@@ -9,7 +9,7 @@ const main = async () => {
     await studentContract.deployed();
 
     // verify deployment of student contracts
-    if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
+    if (network.config.chainId===5 && process.env.ETHERSCAN_API_KEY)
     {
       console.log("Waiting for block confirmations ...");
       await studentContract.deployTransaction.wait(6);
@@ -20,7 +20,7 @@ const main = async () => {
 
     // creating a student
 
-    const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn")
+    const studentToCreate = await studentContract.createStudent("john","doe","john@gmail.tn","0x4420F374a97077357272734d8753d28E6346B341")
     const student = await studentToCreate.wait();
     const event = student.events.find(event => event.event === 'studentCreated');
     const [id, first,last,account,email] = event.args;
@@ -34,7 +34,7 @@ const main = async () => {
 
 
     // verify deployment of pathContract contracts
-    if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
+    if (network.config.chainId===5 && process.env.ETHERSCAN_API_KEY)
     {
       console.log("Waiting for block confirmations ...");
       await pathContract.deployTransaction.wait(6);
@@ -55,7 +55,7 @@ const main = async () => {
     await levelContract.deployed(); 
 
     // verify deployment of levelContract contracts
-    if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
+    if (network.config.chainId===5 && process.env.ETHERSCAN_API_KEY)
     {
       console.log("Waiting for block confirmations ...");
       await levelContract.deployTransaction.wait(6);
@@ -76,7 +76,7 @@ const main = async () => {
     await sessionContract.deployed(); 
 
     // verify deployment of session contracts
-    if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
+    if (network.config.chainId===5 && process.env.ETHERSCAN_API_KEY)
     {
       console.log("Waiting for block confirmations ...");
       await sessionContract.deployTransaction.wait(6);
@@ -106,7 +106,7 @@ const main = async () => {
     await stdToSesContract.deployed(); 
 
     // verify deployment of studentToSession contracts
-    if (network.config.chainId===4 && process.env.ETHERSCAN_API_KEY)
+    if (network.config.chainId===5 && process.env.ETHERSCAN_API_KEY)
     {
       console.log("Waiting for block confirmations ...");
       await stdToSesContract.deployTransaction.wait(6);

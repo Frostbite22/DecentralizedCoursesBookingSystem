@@ -29,5 +29,7 @@ abstract contract AbstractStudent
   
 
     function setEmail(string memory _email)  public virtual ;
+        function setAccount(address _account)  public virtual ;
+
   
 }

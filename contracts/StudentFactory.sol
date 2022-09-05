@@ -14,12 +14,11 @@ contract StudentFactory
     AbstractStudent[] students ;
     event studentCreated (uint16,string, string,address,string);
 
-    function isStudentUnique(string memory _firstName, string memory _lastName) public view returns(bool)
+    function isStudentUnique(address _account) public view returns(bool)
     {
         for (uint i=0 ; i< students.length ; i++)
         {
-            if (keccak256(bytes(_firstName))==keccak256(bytes(students[i].getFirstName()))&&
-            keccak256(bytes(_lastName))==keccak256(bytes(students[i].getLastName())))            
+            if (_account == students[i].getAccount())         
             {
                 return false ;
             }
@@ -27,16 +26,17 @@ contract StudentFactory
         return true ;
     }
 
-    function createStudent(string memory _firstName, string memory _lastName, string memory _email) public 
+    function createStudent(string memory _firstName, string memory _lastName, string memory _email, address _account) public 
     {
-        if(isStudentUnique(_firstName,_lastName))
+        if(isStudentUnique(_account))
         {
             AbstractStudent std = new Student(id) ;
             std.setFirstName(_firstName);
             std.setLastName(_lastName);  
             std.setEmail(_email);
+            std.setAccount(_account);
             students.push(std);
-            emit studentCreated(id,_firstName,_lastName,std.getAccount(),_email);
+            emit studentCreated(id,_firstName,_lastName,_account,_email);
             id++ ;
         }
         else 

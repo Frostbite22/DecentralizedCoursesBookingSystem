@@ -30,7 +30,7 @@ describe("StudentFactory", function () {
     it("create a student", async function()
     {
         const currentId = await studentContract.getCurrentId();
-        const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn")
+        const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn","0x4420f374a97077357272734d8753d28e6346b341")
         const student = await studentToCreate.wait();
         const event = student.events.find(event => event.event === 'studentCreated');
         const [id, first,last,account,email] = event.args;
@@ -39,19 +39,19 @@ describe("StudentFactory", function () {
     }) 
     it("No duplicate students to be created",async function(){
         const currentId = await studentContract.getCurrentId();
-        const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn")
+        const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn","0x4420f374a97077357272734d8753d28e6346b341")
         const student = await studentToCreate.wait();
         const event = student.events.find(event => event.event === 'studentCreated');
         const [id, first,last,account,email] = event.args;
         expect([id.toString(),first,last,account,email]).to.eql([currentId.toString(),"mdfares","dark knight",account,"land@gmail.tn"]);
 
-        await expect(studentContract.createStudent("mdfares","dark knight",account,"land@gmail.tn")).to.be.reverted ;
+        await expect(studentContract.createStudent("mdfares","dark knight","0x4420f374a97077357272734d8753d28e6346b341","land@gmail.tn")).to.be.reverted ;
  
     })  
     
     it("get students length after creating one student",async function(){
         const currentId = await studentContract.getCurrentId();
-        const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn")
+        const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn","0x4420f374a97077357272734d8753d28e6346b341")
         const student = await studentToCreate.wait();
         const event = student.events.find(event => event.event === 'studentCreated');
         const [id, first,last,account,email] = event.args;
@@ -65,7 +65,7 @@ describe("StudentFactory", function () {
     it("get student by id", async function()
     {
         const currentId = await studentContract.getCurrentId();
-        const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn")
+        const studentToCreate = await studentContract.createStudent("mdfares","dark knight","land@gmail.tn","0x4420f374a97077357272734d8753d28e6346b341")
         const student = await studentToCreate.wait();
         const event = student.events.find(event => event.event === 'studentCreated');
         const [id, first,last,account,email] = event.args;
