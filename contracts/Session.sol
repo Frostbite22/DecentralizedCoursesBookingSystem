@@ -6,6 +6,7 @@ import "hardhat/console.sol";
 
 contract Session 
 {
+    string private name ; 
     uint16 private sessionId ; 
     uint256 private date ; 
     uint16 private levelId ; 
@@ -22,6 +23,16 @@ contract Session
     function getDate() view public returns(uint256)
     {
         return date ; 
+    }
+
+     function setName(string memory _name) public 
+    {
+        name = _name;
+    }
+
+    function getName() view public returns(string memory)
+    {
+        return name ; 
     }
     
     function getId() view public returns(uint16)

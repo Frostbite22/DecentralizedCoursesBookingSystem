@@ -86,19 +86,21 @@ const main = async () => {
     // creating a session for that level
 
     const dat = new Date(2022,12,25,14,30,0);
-    const createSessTxn = await sessionContract.createSession(dat.getTime()/1000,id_level);
+    const createSessTxn = await sessionContract.createSession("session one : js",dat.getTime()/1000,id_level);
 
     const session = await createSessTxn.wait(); 
     const eventSession = session.events.find(event => event.event ==='sessionCreated');
-    const [id_sess,date,level_id_fk] = eventSession.args ;
+    const [id_sess,name,date,level_id_fk] = eventSession.args ;
     const response_date = new Date(date*1000)
-    console.log(`session created with id ${id_sess} and date ${response_date} and level id : ${level_id_fk} `);
+    console.log(`session created with id ${id_sess} with name ${name} and date ${response_date} and level id : ${level_id_fk} `);
 
-    const createSess2Txn = await sessionContract.createSession("4555",id_level);
+    const createSess2Txn = await sessionContract.createSession("session two : react",dat.getTime()/1000,id_level);
     const session2 = await createSess2Txn.wait(); 
     const eventSession2 = session2.events.find(event => event.event ==='sessionCreated');
-    const [id_sess2,date2,level_id_fk_2] = eventSession2.args ;
-    console.log(`session created with id ${id_sess2} and date ${date2} and level id : ${level_id_fk_2}`);
+    const [id_sess2,name2,date2,level_id_fk_2] = eventSession2.args ;
+    const response_date2 = new Date(date*1000)
+
+    console.log(`session created with id ${id_sess2} with name ${name2} and date ${response_date2} and level id : ${level_id_fk_2}`);
 
 
   
