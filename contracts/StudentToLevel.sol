@@ -5,7 +5,7 @@ pragma solidity ^0.8.9;
 import "hardhat/console.sol";
 import "./Student.sol";
 import "./Level.sol" ;
-import "./LevelFactory.sol" ;
+import "./ILevelFactory.sol" ;
 
 contract StudentToLevel
 {
@@ -15,10 +15,13 @@ contract StudentToLevel
 
     uint16 private currentId ;
 
-    constructor(uint16 _id,uint16 _studentId, uint16 _levelId)
+    address LevelFactoryAddr;
+
+    constructor(uint16 _id,uint16 _studentId, uint16 _levelId,address _levelFactoryAddress)
     {
-        LevelFactory factoryLevel = new LevelFactory() ;
-        Level level = factoryLevel.getLevelObjectById(_levelId);
+        LevelFactoryAddr = _levelFactoryAddress ;
+        ILevelFactory levelFactory = ILevelFactory(LevelFactoryAddr) ;
+        Level level = levelFactory.getLevelObjectById(_levelId) ;
         level.setPlacesLeft(level.getPlacesLeft()-1);
         studentId = _studentId ; 
         levelId = _levelId ;

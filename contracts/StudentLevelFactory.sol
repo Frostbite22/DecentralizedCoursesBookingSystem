@@ -13,9 +13,9 @@ contract StudentLevelFactory
     StudentToLevel[] studentLevel ;
     event studentLevelCreated (uint16,uint16, uint16);
 
-    function createStudentLevel(uint16 _studentId, uint16 _levelId) public 
+    function createStudentLevel(uint16 _studentId, uint16 _levelId,address _lvlFactory) public 
     {
-        StudentToLevel stdLvl = new StudentToLevel(id,_studentId,_levelId);
+        StudentToLevel stdLvl = new StudentToLevel(id,_studentId,_levelId,_lvlFactory);
         studentLevel.push(stdLvl);
         emit studentLevelCreated(id,_studentId,_levelId);
         id++;

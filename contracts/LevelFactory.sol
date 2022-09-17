@@ -4,6 +4,7 @@ pragma solidity ^0.8.9;
 // Import this file to use console.log
 import "hardhat/console.sol";
 import "./Level.sol" ;
+import "./ILevelFactory.sol";
 
 contract LevelFactory 
 {
@@ -16,7 +17,7 @@ contract LevelFactory
         return id ;
     }
 
-    function isLevelUnique( string memory _levelName) public view returns(bool)
+    function isLevelUnique( string memory _levelName) internal view returns(bool)
     {
         for (uint i=0 ; i< levels.length ; i++)
         {
@@ -37,7 +38,7 @@ contract LevelFactory
             level.setDescription(_description);
             level.setImageUrl(_imageUrl);
             level.setPlacesLeft(_placesLeft);
-            levels.push(level);
+            levels.push(level) ;
             emit levelCreated(id,_levelName,_description,_imageUrl,_placesLeft,_pathId);
             id++ ; 
         }
@@ -50,23 +51,25 @@ contract LevelFactory
 
     function getLevelsLength() public view returns(uint256)
     {
-        return levels.length ;
+        return id ;
     }
 
-    function getLevelById(uint16 _id) public view returns (uint16,string memory,string memory,string memory, uint16)
+    function getLevelById(uint16 _id) public view returns (uint16,string memory,string memory,string memory,uint16, uint16)
     {
-        for (uint256 i=0; i<levels.length ;i++)
+        for (uint256 i=0; i< levels.length ;i++)
         {
             if (levels[i].getLevelId()==_id)
             {
-                return (levels[i].getLevelId(),levels[i].getLevelName(),levels[i].getDescription(),levels[i].getImageUrl(),levels[i].getPathId());
+                return (levels[i].getLevelId(),levels[i].getLevelName(),levels[i].getDescription(),levels[i].getImageUrl(),levels[i].getPlacesLeft(),levels[i].getPathId());
             }
         }
         revert('Level with this id is not Not found');
     }
 
-    function getLevelObjectById(uint _id)public view returns( Level)
+    function getLevelObjectById(uint16 _id) public view returns(Level)
     {
-        return levels[_id]; 
+        return levels[_id];
     }
+
+   
 } 

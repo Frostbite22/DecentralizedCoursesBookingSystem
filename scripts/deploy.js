@@ -53,7 +53,7 @@ const main = async () => {
     const levelContractFactory = await hre.ethers.getContractFactory("LevelFactory");
     const levelContract = await levelContractFactory.deploy();
     await levelContract.deployed(); 
-
+    
     // verify deployment of levelContract contracts
     if (network.config.chainId===5 && process.env.ETHERSCAN_API_KEY)
     {
@@ -64,11 +64,11 @@ const main = async () => {
     
 
     // creating a level for that path
-    const createLevelTxn = await levelContract.createLevel("backend lvl1","backend dev nodejs","url//node",id_path);
+    const createLevelTxn = await levelContract.createLevel("backend lvl1","backend dev nodejs","url//node",20,id_path);
     const level= await createLevelTxn.wait(); 
     const eventLevel = level.events.find(event => event.event ==='levelCreated');
-    const [id_level,levelName,description_lvl,url_lvl,id_path_fk] = eventLevel.args ;
-    console.log(`level created with id ${id_level} and name ${levelName} : ${description_lvl} , ${url_lvl} with path id ${id_path_fk}`);
+    const [id_level,levelName,description_lvl,url_lvl,nb_places,id_path_fk] = eventLevel.args ;
+    console.log(`level created with id ${id_level} and name ${levelName} : ${description_lvl} , ${url_lvl} with nbplace ${nb_places} with path id ${id_path_fk}`);
 
     // session contract deployment
     const sessionContractFactory = await hre.ethers.getContractFactory("SessionFactory");
@@ -98,47 +98,40 @@ const main = async () => {
     const session2 = await createSess2Txn.wait(); 
     const eventSession2 = session2.events.find(event => event.event ==='sessionCreated');
     const [id_sess2,name2,date2,level_id_fk_2] = eventSession2.args ;
-    const response_date2 = new Date(date*1000)
+    const response_date2 = new Date(date2*1000)
 
     console.log(`session created with id ${id_sess2} with name ${name2} and date ${response_date2} and level id : ${level_id_fk_2}`);
 
 
-  
-
-    // studentToSession contract 
-    const stdToSesContractFactory = await hre.ethers.getContractFactory("StudentSessionFactory");
-    const stdToSesContract = await stdToSesContractFactory.deploy();
-    await stdToSesContract.deployed(); 
+    // studentToLevel contract 
+    const stdToLvlContractFactory = await hre.ethers.getContractFactory("StudentLevelFactory");
+    const stdToLvlContract = await stdToLvlContractFactory.deploy();
+    await stdToLvlContract.deployed(); 
 
     // verify deployment of studentToSession contracts
     if (network.config.chainId===5 && process.env.ETHERSCAN_API_KEY)
     {
       console.log("Waiting for block confirmations ...");
-      await stdToSesContract.deployTransaction.wait(6);
-      await verify(stdToSesContract.address,[]);
+      await stdToLvlContract.deployTransaction.wait(6);
+      await verify(stdToLvlContract.address,[]);
     }
 
-    const stdToSessTnx = await stdToSesContract.createStudentSession(id,id_sess) ;
-    stdToSessTnx.wait(); 
-    console.log("student added to Session");
+    const stdToLevelTnx = await stdToLvlContract.createStudentLevel(id,id_level,levelContract.address) ;
+    stdToLevelTnx.wait(); 
+    console.log("student added to Level");
 
-    const stdToSess2Tnx = await stdToSesContract.createStudentSession(id,id_sess2) ;
-    stdToSess2Tnx.wait(); 
-    console.log("student added to Session");
+    const levelCheck = await levelContract.getLevelById(id_level) ;
+    console.log(levelCheck)
 
 
-    // sessions of Student 0
-    const sessions = await stdToSesContract.getStudentSessionsId(id);
-    console.log(`sessions of Student ${id}`);
-    console.log([...new Set(sessions)]);
-    // Students of session 0
-    const students1 = await stdToSesContract.getSessionStudentsId(id_sess);
-    console.log(`students of session ${id_sess}`);
+    // levels of Student 0
+    const levels = await stdToLvlContract.getStudentLevelsId(id);
+    console.log(`levels of Student ${id}`);
+    console.log([...new Set(levels)]);
+    // Students of Level 0
+    const students1 = await stdToLvlContract.getLevelStudentsId(id_level);
+    console.log(`students of level ${id_sess}`);
     console.log([...new Set(students1)]);
-    // Students of Session 1
-    const students2 = await stdToSesContract.getSessionStudentsId(id_sess2);
-    console.log(`students of session ${id_sess2}`);
-    console.log([...new Set(students2)]);
 
 }
 
