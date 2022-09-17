@@ -9,13 +9,13 @@ contract SessionFactory
 {
     uint16 private id ; 
     Session[] sessions ;
-    event sessionCreated (uint16 id,uint32 date,uint16 levelId);
+    event sessionCreated (uint16 id,uint256 date,uint16 levelId);
 
     function getCurrentId() view public returns(uint16)
     {
         return id ;
     }
-    function createSession(uint32 _date,uint16 _levelId) public 
+    function createSession(uint256 _date,uint16 _levelId) public 
     {
         Session session = new Session(id);
         session.setDate(_date);
@@ -31,7 +31,7 @@ contract SessionFactory
         return sessions.length ;
     }
 
-    function getSessionById(uint16 _id) public view returns (uint16,uint32)
+    function getSessionById(uint16 _id) public view returns (uint16,uint256)
     {
         for (uint256 i=0; i<sessions.length ;i++)
         {

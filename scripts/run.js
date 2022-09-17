@@ -35,8 +35,8 @@ const main = async () => {
     const sessionContractFactory = await hre.ethers.getContractFactory("SessionFactory");
     const sessionContract = await sessionContractFactory.deploy();
     await sessionContract.deployed(); 
-
-    const createSessTxn = await sessionContract.createSession("1455");
+    const date = new Date(2022,12,25,14,30,0);
+    const createSessTxn = await sessionContract.createSession(date.getTime());
     createSessTxn.wait(); 
     console.log("session created");
 
