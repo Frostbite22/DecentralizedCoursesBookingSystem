@@ -8,8 +8,8 @@ import "./Level.sol" ;
 contract LevelFactory 
 {
     uint16 private id ; 
-    Level[] levels ;
-    event levelCreated (uint16 id,string levelName, string description, string imgUrl, uint16 pathId);
+    Level[] public levels ;
+    event levelCreated (uint16 id,string levelName, string description, string imgUrl,uint16 placesLeft,uint16 pathId);
 
     function getCurrentId() view public returns(uint16)
     {
@@ -28,7 +28,7 @@ contract LevelFactory
         return true ;
     }
 
-    function createLevel(string memory _levelName,string memory _description,string memory _imageUrl, uint16 _pathId) public 
+    function createLevel(string memory _levelName,string memory _description,string memory _imageUrl,uint16 _placesLeft, uint16 _pathId) public 
     {
         if(isLevelUnique(_levelName))
         {
@@ -36,8 +36,9 @@ contract LevelFactory
             level.setLevelName(_levelName);
             level.setDescription(_description);
             level.setImageUrl(_imageUrl);
+            level.setPlacesLeft(_placesLeft);
             levels.push(level);
-            emit levelCreated(id,_levelName,_description,_imageUrl,_pathId);
+            emit levelCreated(id,_levelName,_description,_imageUrl,_placesLeft,_pathId);
             id++ ; 
         }
         else 
@@ -62,5 +63,10 @@ contract LevelFactory
             }
         }
         revert('Level with this id is not Not found');
+    }
+
+    function getLevelObjectById(uint _id)public view returns( Level)
+    {
+        return levels[_id]; 
     }
 } 

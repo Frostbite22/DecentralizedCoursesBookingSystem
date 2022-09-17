@@ -4,20 +4,24 @@ pragma solidity ^0.8.9;
 // Import this file to use console.log
 import "hardhat/console.sol";
 import "./Student.sol";
-import "./Session.sol" ;
+import "./Level.sol" ;
+import "./LevelFactory.sol" ;
 
-contract StudentToSession 
+contract StudentToLevel
 {
     uint16 private studentId ;
-    uint16 private sessionId ;
+    uint16 private levelId ;
     uint16 private id ;
 
     uint16 private currentId ;
 
-    constructor(uint16 _id,uint16 _studentId, uint16 _sessionId)
+    constructor(uint16 _id,uint16 _studentId, uint16 _levelId)
     {
+        LevelFactory factoryLevel = new LevelFactory() ;
+        Level level = factoryLevel.getLevelObjectById(_levelId);
+        level.setPlacesLeft(level.getPlacesLeft()-1);
         studentId = _studentId ; 
-        sessionId = _sessionId ;
+        levelId = _levelId ;
         id = _id ;
     }
 
@@ -31,9 +35,9 @@ contract StudentToSession
         return studentId ;
     }
 
-    function getSessionId() public view returns(uint16)
+    function getLevelId() public view returns(uint16)
     {
-        return sessionId ;
+        return levelId ;
     }
 
 

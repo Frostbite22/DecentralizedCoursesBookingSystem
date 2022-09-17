@@ -11,6 +11,7 @@ contract Level
     string private description ; 
     string private imageUrl ; 
     uint16 private pathId ;
+    uint16 private placesLeft ;
 
     constructor(uint16 _levelId)
     {
@@ -25,6 +26,16 @@ contract Level
     function getLevelName() view public returns(string memory)
     {
         return levelName ; 
+    }
+
+     function setPlacesLeft(uint16 _placesLeft) public 
+    {
+        placesLeft = _placesLeft ; 
+    }
+
+    function getPlacesLeft() view public returns(uint16)
+    {
+        return placesLeft ; 
     }
 
     function setDescription(string memory _description) public 
