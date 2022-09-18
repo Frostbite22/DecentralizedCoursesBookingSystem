@@ -5,13 +5,13 @@ pragma solidity ^0.8.9;
 // Import this file to use console.log
 import "hardhat/console.sol";
 import "./Student.sol" ;
-import "./AbstractStudent.sol" ;
+import "./AbstractUser.sol" ;
 
 contract StudentFactory
 {
     
     uint16 private id ; 
-    AbstractStudent[] students ;
+    AbstractUser[] students ;
     event studentCreated (uint16,string, string,address,string);
 
     function isStudentUnique(address _account) public view returns(bool)
@@ -30,7 +30,7 @@ contract StudentFactory
     {
         if(isStudentUnique(_account))
         {
-            AbstractStudent std = new Student(id) ;
+            AbstractUser std = new Student(id) ;
             std.setFirstName(_firstName);
             std.setLastName(_lastName);  
             std.setEmail(_email);

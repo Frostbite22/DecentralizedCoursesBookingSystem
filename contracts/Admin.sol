@@ -5,7 +5,7 @@ pragma solidity ^0.8.9;
 import "hardhat/console.sol";
 import "./AbstractUser.sol" ;
 
-contract Student is AbstractUser
+contract Admin is AbstractUser
 {
     string private firstName ; 
     string private lastName ; 

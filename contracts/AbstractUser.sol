@@ -5,7 +5,7 @@ pragma solidity ^0.8.9;
 import "hardhat/console.sol";
 
 
-abstract contract AbstractStudent
+abstract contract AbstractUser
 {
 
     function setFirstName(string calldata _fn) virtual public  ;
