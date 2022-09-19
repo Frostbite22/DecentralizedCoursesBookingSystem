@@ -1,19 +1,19 @@
-Compiled 12 Solidity files successfully
 Waiting for block confirmations ...
 Verifying contract ..
 Nothing to compile
 Successfully submitted source code for contract
-contracts/StudentFactory.sol:StudentFactory at 0xc41b42048a1D396e9d011edDCb822E04d30AFc66
+contracts/StudentFactory.sol:StudentFactory at 0xbfa7Dda7dF0eA06497BcabBDd0712d089cA38E4C
 for verification on the block explorer. Waiting for verification result...
 
-already verified
-Deployed contract to: 0xc41b42048a1D396e9d011edDCb822E04d30AFc66
+Successfully verified contract StudentFactory on Etherscan.
+https://goerli.etherscan.io/address/0xbfa7Dda7dF0eA06497BcabBDd0712d089cA38E4C#code
+Deployed contract to: 0xbfa7Dda7dF0eA06497BcabBDd0712d089cA38E4C
 created student with id 0 firstName john and lastName doe with acc 0x4420F374a97077357272734d8753d28E6346B341 and email john@gmail.tn
 Waiting for block confirmations ...
 Verifying contract ..
-Compiled 12 Solidity files successfully
+Compiled 15 Solidity files successfully
 Successfully submitted source code for contract
-contracts/PathFactory.sol:PathFactory at 0x739e90e2a472A583904f11A7daF7D17916dB4F9f
+contracts/PathFactory.sol:PathFactory at 0x169A4F2605399489DAeFB52E310fAc4F5A0CAe95
 for verification on the block explorer. Waiting for verification result...
 
 already verified
@@ -22,34 +22,35 @@ Waiting for block confirmations ...
 Verifying contract ..
 Nothing to compile
 Successfully submitted source code for contract
-contracts/LevelFactory.sol:LevelFactory at 0xe55e33D0030c0aE4999b16F2E4cf92533930F18a
+contracts/LevelFactory.sol:LevelFactory at 0x0349b9032058bd51e259a20bEE55da094320d039
 for verification on the block explorer. Waiting for verification result...
 
-already verified
-level created with id 0 and name backend lvl1 : backend dev nodejs , url//node with path id 0
+Successfully verified contract LevelFactory on Etherscan.
+https://goerli.etherscan.io/address/0x0349b9032058bd51e259a20bEE55da094320d039#code
+level created with id 0 and name backend lvl1 : backend dev nodejs , url//node with nbplace 20 with path id 0
 Waiting for block confirmations ...
 Verifying contract ..
 Nothing to compile
 Successfully submitted source code for contract
-contracts/SessionFactory.sol:SessionFactory at 0x55792a70a58be33077eaB599344390d8c2d47916
+contracts/SessionFactory.sol:SessionFactory at 0x5EE3aCb8e46c170ddF1e58eE1475448cDBDA582a
 for verification on the block explorer. Waiting for verification result...
 
-already verified
-session created with id 0 and date 1455 and level id : 0 
-session created with id 1 and date 4555 and level id : 0
+Successfully verified contract SessionFactory on Etherscan.
+https://goerli.etherscan.io/address/0x5EE3aCb8e46c170ddF1e58eE1475448cDBDA582a#code
+session created with id 0 with name session one : js and date Wed Jan 25 2023 14:30:00 GMT+0100 (Central European Standard Time) and level id : 0 
+session created with id 1 with name session two : react and date Wed Jan 25 2023 14:30:00 GMT+0100 (Central European Standard Time) and level id : 0
 Waiting for block confirmations ...
 Verifying contract ..
 Nothing to compile
 Successfully submitted source code for contract
-contracts/StudentSessionFactory.sol:StudentSessionFactory at 0xb2f6288fE8b9E1E88Ec3B3093382C76E76852037
+contracts/StudentLevelFactory.sol:StudentLevelFactory at 0xFb68d7dFaE416748F7f81D4C884e19ab9087AFaC
 for verification on the block explorer. Waiting for verification result...
 
-already verified
-student added to Session
-student added to Session
-sessions of Student 0
-[]
-students of session 0
-[]
-students of session 1
-[]
+Successfully verified contract StudentLevelFactory on Etherscan.
+https://goerli.etherscan.io/address/0xFb68d7dFaE416748F7f81D4C884e19ab9087AFaC#code
+student added to Level
+[ 0, 'backend lvl1', 'backend dev nodejs', 'url//node', 19, 0 ]
+levels of Student 0
+[ 0 ]
+students of level 0
+[ 0 ]

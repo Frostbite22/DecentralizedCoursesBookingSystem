@@ -3,6 +3,10 @@ const hre = require("hardhat");
 
 const main = async () => {
 
+  const [owner, otherAccount] = await ethers.getSigners();
+
+    console.log(owner)
+
     const studentContractFactory = await hre.ethers.getContractFactory("StudentFactory");
 
     const studentContract = await studentContractFactory.deploy();
