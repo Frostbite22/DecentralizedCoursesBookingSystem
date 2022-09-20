@@ -32,13 +32,13 @@ contract SessionFactory
         return sessions.length ;
     }
 
-    function getSessionById(uint16 _id) public view returns (uint16,uint256,string memory)
+    function getSessionById(uint16 _id) public view returns (uint16,string memory,uint256,uint16)
     {
         for (uint256 i=0; i<sessions.length ;i++)
         {
             if (sessions[i].getId()==_id)
             {
-                return (sessions[i].getId(),sessions[i].getDate(),sessions[i].getName());
+                return (sessions[i].getId(),sessions[i].getName(),sessions[i].getDate(),sessions[i].getLevelId());
             }
         }
         revert('Session with this id is not Not found');

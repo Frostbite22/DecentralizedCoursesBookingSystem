@@ -121,8 +121,11 @@ const main = async () => {
     }
 
     const stdToLevelTnx = await stdToLvlContract.createStudentLevel(id,id_level,levelContract.address) ;
-    stdToLevelTnx.wait(); 
-    console.log("student added to Level");
+    const stdToLvl = await stdToLevelTnx.wait(); 
+    const eventStdToLvl = stdToLvl.events.find(event => event.event ==='studentLevelCreated');
+    const [id_std_session,studentId,levelId] = eventStdToLvl.args ;
+    console.log(`student added to level ${id_std_session} : ${studentId} : ${levelId} `); 
+
 
     const levelCheck = await levelContract.getLevelById(id_level) ;
     console.log(levelCheck)

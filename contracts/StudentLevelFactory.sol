@@ -13,12 +13,30 @@ contract StudentLevelFactory
     StudentToLevel[] studentLevel ;
     event studentLevelCreated (uint16,uint16, uint16);
 
+     function isStudentLevelUnique(uint16 _studentId, uint16 _levelId) public view returns(bool)
+    {
+        for (uint i=0 ; i< studentLevel.length ; i++)
+        {
+            if (_studentId == studentLevel[i].getStudentId() && _levelId == studentLevel[i].getLevelId() )         
+            {
+                return false ;
+            }
+        }
+        return true ;
+    }
     function createStudentLevel(uint16 _studentId, uint16 _levelId,address _lvlFactory) public 
     {
-        StudentToLevel stdLvl = new StudentToLevel(id,_studentId,_levelId,_lvlFactory);
-        studentLevel.push(stdLvl);
-        emit studentLevelCreated(id,_studentId,_levelId);
-        id++;
+        if(isStudentLevelUnique(_studentId,_levelId))
+        {
+            StudentToLevel stdLvl = new StudentToLevel(id,_studentId,_levelId,_lvlFactory);
+            studentLevel.push(stdLvl);
+            emit studentLevelCreated(id,_studentId,_levelId);
+            id++;
+        }
+        else 
+        {
+            revert("This student-Level already exists");
+        }
     }
 
     function getStudentLevelsId(uint16 _studentId) public view returns(uint16[] memory)
