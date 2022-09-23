@@ -26,7 +26,7 @@ contract AdminFactory
         return true ;
     }
 
-    function createAdmins(string memory _firstName, string memory _lastName, string memory _email, address _account) public 
+    function createAdmin(string memory _firstName, string memory _lastName, string memory _email, address _account) public 
     {
         if(isAdminUnique(_account))
         {
@@ -64,7 +64,7 @@ contract AdminFactory
 
     }
 
-    function getStudentByAccount(address account) public view returns(uint16,string memory, string memory,address,string memory)
+    function getAdminByAccount(address account) public view returns(uint16,string memory, string memory,address,string memory)
     {
         for (uint256 i=0; i<admins.length ;i++)
         {

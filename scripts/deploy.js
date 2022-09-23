@@ -5,8 +5,7 @@ const main = async () => {
 
   const [owner, otherAccount] = await ethers.getSigners();
 
-    console.log(owner)
-
+    // create student Factory contract 
     const studentContractFactory = await hre.ethers.getContractFactory("StudentFactory");
 
     const studentContract = await studentContractFactory.deploy();
@@ -30,6 +29,32 @@ const main = async () => {
     const [id, first,last,account,email] = event.args;
 
     console.log(`created student with id ${id} firstName ${first} and lastName ${last} with acc ${account} and email ${email}`);
+
+
+      // create admin Factory contract 
+      const adminContractFactory = await hre.ethers.getContractFactory("AdminFactory");
+
+      const adminContract = await adminContractFactory.deploy();
+      await adminContract.deployed();
+  
+      // verify deployment of admin contracts
+      if (network.config.chainId===5 && process.env.ETHERSCAN_API_KEY)
+      {
+        console.log("Waiting for block confirmations ...");
+        await adminContract.deployTransaction.wait(6);
+        await verify(adminContract.address,[]);
+      }
+  
+      console.log(`Deployed contract to: ${adminContract.address}`);
+  
+      // creating an admin
+  
+      const adminToCreate = await adminContract.createAdmin("Saydo","hamdi","sayedtkd@gmail.tn","0x11ec5aDb332d4Ada2ba6C0a1E87f4B491841Eb78")
+      const admin = await adminToCreate.wait();
+      const eventAdmin = admin.events.find(event => event.event === 'adminCreated');
+      const [idAdm, firstAdm,lastAdm,accountAdm,emailAdm] = eventAdmin.args;
+
+      console.log(`created admin with id ${idAdm} firstName ${firstAdm} and lastName ${lastAdm} with acc ${accountAdm} and email ${emailAdm}`);
 
     // deploying path contract
     const pathContractFactory = await hre.ethers.getContractFactory("PathFactory");
