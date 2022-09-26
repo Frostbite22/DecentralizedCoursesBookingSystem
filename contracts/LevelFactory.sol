@@ -38,6 +38,7 @@ contract LevelFactory
             level.setDescription(_description);
             level.setImageUrl(_imageUrl);
             level.setPlacesLeft(_placesLeft);
+            level.setPathId(_pathId);
             levels.push(level) ;
             emit levelCreated(id,_levelName,_description,_imageUrl,_placesLeft,_pathId);
             id++ ; 

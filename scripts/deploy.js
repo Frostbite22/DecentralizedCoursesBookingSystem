@@ -72,7 +72,7 @@ const main = async () => {
 
     // creating a path
 
-    const createPathTxn = await pathContract.createPath("fullstack dev","front and back dev","url//image");
+    const createPathTxn = await pathContract.createPath("fullstack dev","front and back dev","https://img.freepik.com/premium-vector/full-stack-developer-working-computer-vector-illustration-it-professional-web-developer-programmi_103044-1164.jpg");
     const path= await createPathTxn.wait(); 
     const eventPath = path.events.find(event => event.event ==='pathCreated');
     const [id_path,pathName,description,url] = eventPath.args ;
@@ -93,7 +93,7 @@ const main = async () => {
     
 
     // creating a level for that path
-    const createLevelTxn = await levelContract.createLevel("backend lvl1","backend dev nodejs","url//node",20,id_path);
+    const createLevelTxn = await levelContract.createLevel("backend lvl1","backend dev nodejs","https://d1fmx1rbmqrxrr.cloudfront.net/zdnet/i/edit/ne/2021/07/NodeJS.jpg",20,id_path);
     const level= await createLevelTxn.wait(); 
     const eventLevel = level.events.find(event => event.event ==='levelCreated');
     const [id_level,levelName,description_lvl,url_lvl,nb_places,id_path_fk] = eventLevel.args ;
