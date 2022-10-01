@@ -43,31 +43,49 @@ contract StudentLevelFactory
     {
         uint16[] memory levels = new uint16[](studentLevel.length) ;
         uint levelNum ;
+        bool empty ;
 
         for (uint16 i=0; i<studentLevel.length ;i++)
         {
             if (studentLevel[i].getStudentId()==_studentId)
             {
+                empty = false ; 
                 levels[levelNum] = studentLevel[i].getLevelId();
                 levelNum++ ;
             }
         }
-        return levels ;
+        if(empty) 
+        {
+            revert("No object found");
+        }
+        else
+        {
+            return levels ;  
+        }
     }
 
     function getLevelStudentsId(uint16 _levelId) public view returns(uint16[] memory)
     {
         uint16[] memory students = new uint16[](studentLevel.length) ;
         uint studentNum ;
+        bool empty = true ;
 
         for (uint16 i=0; i<studentLevel.length ;i++)
         {
             if (studentLevel[i].getLevelId()==_levelId)
             {
+                empty = false ;
                 students[studentNum] = studentLevel[i].getStudentId();
                 studentNum++ ;
             }
         }
-        return students ;
+        if(empty) 
+        {
+            revert("No object found");
+        }
+        else
+        {
+            return students ;  
+        }
     }
 }
