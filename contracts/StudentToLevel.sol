@@ -22,10 +22,17 @@ contract StudentToLevel
         LevelFactoryAddr = _levelFactoryAddress ;
         ILevelFactory levelFactory = ILevelFactory(LevelFactoryAddr) ;
         Level level = levelFactory.getLevelObjectById(_levelId) ;
-        level.setPlacesLeft(level.getPlacesLeft()-1);
-        studentId = _studentId ; 
-        levelId = _levelId ;
-        id = _id ;
+        if(level.getPlacesLeft()>0)
+        {
+            level.setPlacesLeft(level.getPlacesLeft()-1);
+            studentId = _studentId ; 
+            levelId = _levelId ;
+            id = _id ;
+        }
+        else 
+        {
+            revert("there no places left");
+        }
     }
 
     function getId() public view returns(uint16)

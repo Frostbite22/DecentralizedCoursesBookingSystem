@@ -43,7 +43,7 @@ contract StudentLevelFactory
     {
         uint16[] memory levels = new uint16[](studentLevel.length) ;
         uint levelNum ;
-        bool empty ;
+        bool empty = true ;
 
         for (uint16 i=0; i<studentLevel.length ;i++)
         {
