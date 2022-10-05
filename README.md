@@ -2,6 +2,9 @@
 
 This is a decentralized courses booking system built with hardhat, solidity and Ethers JS and based on smart contracts
 
+## Requirements :
+
+
 ## Design Patterns :
 ### Normal Factory design pattern 
 to create the student and Session objects in Factory Class
