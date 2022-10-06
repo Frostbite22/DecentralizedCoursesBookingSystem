@@ -62,3 +62,11 @@ Execute Balance task
 ```
 npx hardhat balance --account account_public_key 
 ```
+
+## Deployed at 
+
+### Admin interface
+https://frostbite22.github.io/DecentralizedCoursesBookingSystemFrontAdmin
+
+### Student interface
+https://frostbite22.github.io/DecentralizedCoursesBookingSystemFront
