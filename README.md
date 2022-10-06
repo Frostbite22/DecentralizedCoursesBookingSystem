@@ -6,6 +6,9 @@ This is a decentralized courses booking system built with hardhat, solidity and 
 You need to have a wallet with testnet ethereum on the Goerli network
 [Get free Goerli faucet](https://goerlifaucet.com/)
 
+## Architecture : 
+![alt text](https://github.com/Frostbite22/DecentralizedCoursesBookingSystem/blob/main/architecture.png?raw=true)
+
 
 ## Design Patterns :
 ### Normal Factory design pattern 
