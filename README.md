@@ -3,6 +3,8 @@
 This is a decentralized courses booking system built with hardhat, solidity and Ethers JS and based on smart contracts
 
 ## Requirements :
+You need to have a wallet with testnet ethereum on the Goerli network
+[Get free Goerli faucet](https://goerlifaucet.com/)
 
 
 ## Design Patterns :
