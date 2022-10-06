@@ -68,6 +68,9 @@ npx hardhat balance --account account_public_key
 
 ## Deployed at 
 
+### Instructions 
+For the app users, connect your Wallet with an account that have GoerliETH on the Goerli testnet network [get GoerliETH for free](https://goerlifaucet.com/), create an account if you are a user and get access to the plateform. <br>
+If you are an admin, you should connect with your admin account already written on the blockchain.
 ### Admin interface
 https://frostbite22.github.io/DecentralizedCoursesBookingSystemFrontAdmin
 
